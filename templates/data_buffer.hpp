@@ -30,7 +30,7 @@ class DataBuffer
 
 		DataBuffer& operator<<(const TType& data)
 		{
-			std::byte	*raw = reinterpret_cast<std::byte*>(std::addressof(data));
+			const std::byte	*raw = reinterpret_cast<const std::byte*>(std::addressof(data));
 
 			_buffer.insert(_buffer.end(), raw , raw + sizeof(TType));
 
@@ -47,13 +47,13 @@ class DataBuffer
 				throw std::out_of_range("DataBuffer: Not enough data to extract");
 			}
 			
-			data = *reinterpret_cast<TType*>(*( _buffer.begin() + _read_position));
+			data = *reinterpret_cast<TType*>(( _buffer.data() + _read_position));
 
 			_read_position += sizeof(TType);
 
 			if(_read_position >= _buffer.size() / 2)
 			{
-				_buffer.erase(_buffer.begin(),  _buffer.begin() + _read_position - 1);
+				_buffer.erase(_buffer.begin(),  _buffer.begin() + _read_position);
 				_read_position = 0;
 			}
 
