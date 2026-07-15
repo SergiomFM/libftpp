@@ -1,5 +1,7 @@
 #include "libftpp.hpp"
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 
 class example{
 
@@ -13,14 +15,15 @@ class example{
         std::string name;
 
 
-        example(): name("unknown"){
+        example(): _secretNumber(rand()), _something_allocated(new int[1000]), name("unknown"){
             std::cout << name << " has been created" <<std::endl;
 
         };
-        example(const std::string& nname):name(nname){
+        example(const std::string& nname): _secretNumber(rand()), _something_allocated(new int[1000]), name(nname){
             std::cout << name << " has been created" <<std::endl;
         };
         ~example(){
+            delete[] (int *)_something_allocated;
            std::cout << name << " has been destroyed" <<std::endl;
         };
 

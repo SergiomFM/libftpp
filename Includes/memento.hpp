@@ -16,10 +16,10 @@ class Memento
 
         public:
 
-        Snapshot();
-        ~Snapshot();
-        Snapshot(const Snapshot &snapshot);
-        Snapshot& operator=(const Snapshot &snapshot);
+        Snapshot() = default;
+        ~Snapshot() = default;
+        Snapshot(const Snapshot &snapshot) _save_state(snapshot._save_state){};
+        Snapshot& operator=(const Snapshot &snapshot) = default;
 
 
     };
@@ -36,8 +36,19 @@ class Memento
     virtual ~Memento() = 0;
     Memento(const Memento &memento) = delete;
     Memento& operator=(const Memento &memento) = delete;
-    Snapshot Save();
-    void load(const Memento::Snapshot& state);
+
+    Snapshot Save(){
+        Snapshot snapshot;
+        _saveToSnapshot(snapshot);
+        return(snapshot);
+    };
+
+    void load(const Memento::Snapshot& state){
+
+        Snapshot snapshot = state;
+
+        _loadFromSnapshot(snapshot);
+    };
    
 };
 
