@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "data_structures.hpp"
 
+// Stores the current state of an object. Must be inherited by the "saveable" class.
 
 class Memento
 {
@@ -18,7 +19,7 @@ class Memento
 
         Snapshot() = default;
         ~Snapshot() = default;
-        Snapshot(const Snapshot &snapshot) _save_state(snapshot._save_state){};
+        Snapshot(const Snapshot &snapshot): _save_state(snapshot._save_state){};
         Snapshot& operator=(const Snapshot &snapshot) = default;
 
 
