@@ -3,5 +3,6 @@
 
 #include "observer.hpp"
 #include "memento.hpp"
+#include "singleton.hpp"
 
 #endif

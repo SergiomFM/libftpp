@@ -1,5 +1,5 @@
-#ifndef	OBSERVER_HPP
-# define OBSERVER_HPP
+#ifndef	SINGLETON_HPP
+# define SINGLETON_HPP
 
 
 
@@ -11,13 +11,13 @@ template<typename TType>
 
 class Singleton
  {
-     private:
+    private:
     
 
     static TType *_the_chosen_one;
     
     
-     public:
+    public:
 
     Singleton() = default;
     ~Singleton(){   
@@ -40,7 +40,7 @@ class Singleton
     
     template<typename ... TArgs>
 
-    void instantiate(TArgs&& p_args){
+    void instantiate(TArgs&&... p_args){
         
         if(_the_chosen_one != nullptr)
             throw std::runtime_error("Singleton: Instance already exists");

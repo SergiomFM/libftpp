@@ -34,7 +34,7 @@ $(LIB_NAME): $(OBJECTS)
 	$(AR) $(ARFLAGS) $@ $(OBJECTS)
 
 # Test rule: make testname compiles library, compiles test, and runs it
-%: tests/%.cpp $(LIB_NAME)
+test_%: tests/test_%.cpp $(LIB_NAME)
 	$(CXX) $(CXXFLAGS) -I. -I$(TEMPLATE_DIR) -I$(INCLUDE_DIR) $< -o $@ -L. -lftpp
 	valgrind ./$@
 	rm $@
