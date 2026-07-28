@@ -4,8 +4,6 @@
 
 
 
-// Ensures that a templated TType class has only one instance and provides a way to access it
-
 
 template<typename TType>
 
@@ -14,25 +12,23 @@ class Singleton
     private:
     
 
-    static TType *_the_chosen_one;
-    
-    
+     TType *_the_chosen_one = nullptr;
+
     public:
 
-    Singleton() = default;
+    Singleton(): _the_chosen_one(nullptr) {};
     ~Singleton(){   
-        if(_the_chosen_one != nullptr)
-            delete _the_chosen_one;
+        delete _the_chosen_one;
     };
-    Singleton(const Singleton&) = default;
-    Singleton& operator=(const Singleton&) = default;
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
 
 
     //Returns the managed instance of the TType classes
 
     TType* instance(){
-        
-        return(_the_chosen_one);   
+
+        return(_the_chosen_one);
     };
 
 
@@ -42,13 +38,14 @@ class Singleton
 
     void instantiate(TArgs&&... p_args){
         
-        if(_the_chosen_one != nullptr)
-            throw std::runtime_error("Singleton: Instance already exists");
-        
+       if(_the_chosen_one != nullptr){
+            throw std::runtime_error("Singleton Instance already exists");
+        }
         _the_chosen_one = new TType(std::forward<TArgs>(p_args)...);
 
     };
 
  };
+
 
  #endif

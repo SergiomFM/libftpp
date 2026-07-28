@@ -48,7 +48,6 @@ int main()
         Singleton<MoveOnlyValue> singleton;
 
         singleton.instantiate(std::make_unique<int>(42));
-
         assert(singleton.instance() != nullptr);
         assert(singleton.instance()->value != nullptr);
         assert(*singleton.instance()->value == 42);
@@ -70,7 +69,8 @@ int main()
         catch (const std::runtime_error& e)
         {
             threw = true;
-            assert(std::string(e.what()) == "Singleton: Instance already exists");
+            std::cout << "Caught exception: " << e.what() << std::endl;
+            assert(std::string(e.what()) == "Singleton Instance already exists");
         }
 
         assert(threw);
